@@ -17,28 +17,44 @@ Aplicación frontend moderna desarrollada con Angular 17 y arquitectura hexagona
    - Basado en datos oficiales del INEI (1,861 distritos)
    - Gestión de establecimientos involucrados (IPRESS)
    - Base de datos de 35,408 establecimientos de salud del RENIPRESS
-   - 8 casos mock con datos completos
+   - 14 casos mock con datos completos (incluyendo casos de enero, febrero y mayo 2026)
 4. **Mis Pendientes**: Vista para revisores con acciones de aprobación/rechazo
-5. **Reportería y Análisis**: 
-   - Estadísticas generales y gráficos
-   - **Mapa interactivo del Perú con ArcGIS JavaScript API 4.30**
-   - Marcadores por departamento con tamaño variable
-   - Popups informativos y etiquetas
-6. **Workflow Configurable**: Procesos M2.P03, M2.P06 y M2.P07
-7. **IA Aplicada**: Clasificación inteligente y chatbot
-8. **Integración SGD**: Sincronización bidireccional
+5. **IPRESS - Mapa de Establecimientos**: 
+   - **Mapa interactivo del Perú con Highcharts Maps**
+   - Filtros en cascada por Departamento → Provincia → Distrito
+   - Lista de establecimientos con información detallada
+   - Clic en departamento filtra automáticamente la lista
+   - 35,408 establecimientos de salud del RENIPRESS
+6. **Reportería y Análisis**: 
+   - **Mapa interactivo de casos por departamento (Highcharts Maps)**
+   - Filtros en cascada por ubicación del solicitante
+   - Lista detallada de casos con información completa
+   - **Gráfico de evolución mensual por severidad**
+   - Tres líneas de tendencia (Leve, Moderado, Severo)
+   - Análisis del año en curso (2026)
+7. **Workflow Configurable**: Procesos M2.P03, M2.P06 y M2.P07
+8. **IA Aplicada**: Clasificación inteligente y chatbot
+9. **Integración SGD**: Sincronización bidireccional
 
-## 🗺️ Mapa Interactivo
+## 🗺️ Mapas Interactivos
 
-El sistema incluye un mapa del Perú implementado con **ArcGIS JavaScript API 4.30** que muestra:
+El sistema incluye dos módulos con mapas del Perú implementados con **Highcharts Maps**:
 
-- Ubicación de casos por departamento del solicitante
-- Marcadores con tamaño variable según cantidad de casos
-- Etiquetas numéricas sobre los marcadores
-- Popups con información detallada al hacer clic
-- Basemap vectorial de navegación profesional
+### Módulo IPRESS (Establecimientos de Salud)
+- Visualización de 35,408 establecimientos por departamento
+- Filtros en cascada: Departamento → Provincia → Distrito
+- Clic en departamento del mapa filtra automáticamente
+- Lista con información detallada de cada establecimiento
+- Colores según cantidad de establecimientos
 
-**Tecnología**: ArcGIS desde CDN (sin dependencias npm para evitar conflictos con webpack)
+### Módulo Reportería (Casos)
+- Mapa de casos agrupados por departamento del solicitante
+- Filtros en cascada por ubicación
+- Lista de casos con información completa del denunciante
+- Gráfico de evolución mensual con tres líneas de severidad
+- Análisis temporal del año en curso
+
+**Tecnología**: Highcharts Maps con @highcharts/map-collection (mapa oficial del Perú)
 
 ## Instalación
 
@@ -66,7 +82,11 @@ El sistema redirigirá automáticamente a la página de login. Todas las rutas e
 
 - **UBIGEO**: 1,861 registros (Departamentos, Provincias, Distritos del INEI)
 - **IPRESS**: 35,408 establecimientos de salud (RENIPRESS)
-- **Casos**: 8 casos completos con ubicación y establecimientos involucrados
+- **Casos**: 14 casos completos con ubicación y establecimientos involucrados
+  - 2 casos de enero 2026 (Leve, Moderado)
+  - 2 casos de febrero 2026 (Severo, Leve)
+  - 2 casos de mayo 2026 (Moderado, Severo)
+  - 8 casos de marzo-abril 2026
 
 ## Arquitectura
 
@@ -79,10 +99,11 @@ Arquitectura hexagonal (puertos y adaptadores):
   - `mock/`: Repositorios mock para desarrollo
     - Datos UBIGEO del INEI (1,861 distritos)
     - Datos IPRESS del RENIPRESS (35,408 establecimientos)
+    - 14 casos mock con datos completos
   - `guards/`: Guards de autenticación
   - `services/`: Servicios de aplicación
 - **Presentation**: Componentes Angular standalone
-  - `pages/`: Páginas de la aplicación (Login, Dashboard, Casos, Pendientes, Reportes, etc.)
+  - `pages/`: Páginas de la aplicación (Login, Dashboard, Casos, Pendientes, Reportes, IPRESS, etc.)
 
 ## 🎯 Rutas Principales
 
@@ -95,7 +116,8 @@ Arquitectura hexagonal (puertos y adaptadores):
 | `/casos/:id` | Detalle de caso | Sí |
 | `/pendientes` | Mis pendientes (revisores) | Sí |
 | `/pendientes/:id` | Detalle de pendiente | Sí |
-| `/reportes` | Reportería y mapa interactivo | Sí |
+| `/ipress` | Mapa de establecimientos de salud | Sí |
+| `/reportes` | Reportería con mapa y gráficos | Sí |
 | `/workflow` | Gestión de workflow | Sí |
 | `/sgd` | Integración SGD | Sí |
 | `/ia` | Asistente IA | Sí |
@@ -105,13 +127,16 @@ Arquitectura hexagonal (puertos y adaptadores):
 - [Sistema de Autenticación](docs/AUTENTICACION.md)
 - [Sistema de UBIGEO](docs/UBIGEO.md)
 - [Casos Mock de Prueba](docs/CASOS_MOCK.md)
-- [Módulo de Reportería y Mapa](docs/REPORTES.md)
+- [Módulo IPRESS - Mapa de Establecimientos](docs/IPRESS_MAPA.md)
+- [Módulo de Reportería - Mapa y Gráficos](docs/REPORTES_MAPA.md)
 
 ## 🛠️ Tecnologías
 
 - **Angular 17** (Standalone Components)
 - **TypeScript 5.2**
-- **ArcGIS JavaScript API 4.30** (Mapas interactivos)
+- **Highcharts 11.4.0** (Gráficos y mapas interactivos)
+- **Highcharts Maps** (Mapas del Perú)
+- **@highcharts/map-collection 1.2.0** (Datos geográficos oficiales)
 - **RxJS** (Manejo de estado reactivo)
 - **CSS moderno** con diseño responsive
 
@@ -125,35 +150,59 @@ npm run build
 ```
 
 Build exitoso:
-- Tamaño inicial: 17.37 MB (1.62 MB comprimido)
-- 12 chunks lazy loading
-- Sin errores ni warnings críticos
+- Tamaño inicial: 17.38 MB (1.62 MB comprimido)
+- 15 chunks lazy loading
+- Chunk IPRESS: 354.71 kB (110.48 kB comprimido)
+- Chunk Reportes: 11.17 kB (3.30 kB comprimido)
+- Chunk Mapa GeoJSON: 34.70 kB (7.14 kB comprimido)
+- Sin errores, solo warnings de CommonJS (normales con Highcharts)
 
 ## 🚧 Próximos Pasos
 
 - Conectar con API real de backend
 - Implementar exportación de reportes (PDF/Excel)
-- Agregar filtros por fecha en reportes
+- Agregar más filtros en reportes (fecha, tipo, estado)
 - Implementar notificaciones en tiempo real
 - Integrar con sistema SGD real
-- Agregar mapa de calor (heatmap)
-- Implementar clustering de marcadores
+- Agregar tooltips con información detallada en mapas
+- Implementar clustering de marcadores para grandes volúmenes
+- Agregar gráficos adicionales (por tipo, por estado, por región)
 
 ## 📝 Notas Técnicas
 
-### Configuración de ArcGIS
-El proyecto usa ArcGIS JavaScript API desde CDN para evitar conflictos con webpack y calcite-components:
+### Configuración de Highcharts Maps
+El proyecto usa Highcharts Maps para visualización geográfica:
 
-```html
-<!-- index.html -->
-<link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css">
-<script src="https://js.arcgis.com/4.30/"></script>
+```typescript
+import * as Highcharts from 'highcharts';
+import MapModule from 'highcharts/modules/map';
+import '@highcharts/map-collection/countries/pe/pe-all.geo.json';
+
+MapModule(Highcharts);
 ```
 
-Los módulos se cargan dinámicamente usando `(window as any).require` para evitar que webpack intente resolverlos como módulos de Node.js.
+### Mapeo de Códigos UBIGEO
+El sistema utiliza los primeros 2 dígitos del código UBIGEO para identificar departamentos y mapearlos a las claves `hc-key` del mapa de Highcharts:
 
-Ver [docs/REPORTES.md](docs/REPORTES.md) para más detalles sobre la implementación del mapa.
+- 01: Amazonas (pe-am)
+- 07: Callao (pe-cl)
+- 08: Cusco (pe-cs)
+- 10: Huánuco (pe-hc)
+- 15: Lima (pe-lp)
+- 18: Moquegua (pe-mq)
+- ... (25 departamentos en total)
+
+Ver [docs/IPRESS_MAPA.md](docs/IPRESS_MAPA.md) y [docs/REPORTES_MAPA.md](docs/REPORTES_MAPA.md) para más detalles sobre la implementación de los mapas.
+
+### Estructura de Casos Mock
+Los casos incluyen información completa:
+- Datos del solicitante (nombre, documento, ubicación)
+- Tipo de solicitud (Consulta/Denuncia)
+- Severidad (Leve/Moderado/Severo)
+- Estado del caso
+- Establecimientos involucrados (1-3 por caso)
+- Fechas distribuidas en enero, febrero y mayo 2026
 
 ---
 
-**Desarrollado con Angular 17 y ArcGIS JavaScript API**
+**Desarrollado con Angular 17 y Highcharts Maps**
