@@ -10,8 +10,8 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
     <div class="app-container">
       <nav class="sidebar">
         <div class="logo">
-          <h2>SUSALUD BPM</h2>
-          <p class="subtitle">Sistema de Gestión</p>
+          <img src="../../assets/images/logo_susalud.png" style="width:220px;"/>
+          <p class="subtitle">Sistema de Gestión BMP 2.0</p>
         </div>
         
         <ul class="menu">
@@ -79,7 +79,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
     .sidebar {
       width: 260px;
-      background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 100%);
+      background: linear-gradient(180deg, #0EA6F1 0%, #568FDD 100%);
       color: white;
       padding: 20px;
       box-shadow: 2px 0 10px rgba(0,0,0,0.1);
