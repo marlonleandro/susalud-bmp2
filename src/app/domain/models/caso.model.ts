@@ -65,4 +65,20 @@ export interface Caso {
   diasTranscurridos: number;
   diasRestantes: number;
   alertaVencimiento: boolean;
+  establecimientosInvolucrados?: EstablecimientoInvolucrado[];
+}
+
+export interface EstablecimientoInvolucrado {
+  codigoUnico: string;
+  nombre: string;
+  clasificacion: string;
+  tipo: string;
+  institucion: string;
+  departamento: string;
+  provincia: string;
+  distrito: string;
+  ubigeo: string;
+  direccion: string;
+  categoria: string;
+  telefono: string;
 }

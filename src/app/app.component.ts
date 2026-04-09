@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { AuthService } from '@infrastructure/services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   template: `
-    <div class="app-container">
+    <div class="app-container" *ngIf="!isLoginPage()">
       <nav class="sidebar">
         <div class="logo">
           <img src="../../assets/images/logo_susalud.png" style="width:220px;"/>
@@ -25,6 +26,18 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
             <a routerLink="/casos" routerLinkActive="active">
               <span class="icon">📋</span>
               <span>Gestión de Casos</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/pendientes" routerLinkActive="active">
+              <span class="icon">⏳</span>
+              <span>Mis Pendientes</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/ipress" routerLinkActive="active">
+              <span class="icon">🏥</span>
+              <span>IPRESS</span>
             </a>
           </li>
           <li>
@@ -52,6 +65,13 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
             </a>
           </li>
         </ul>
+
+        <div class="sidebar-footer">
+          <button class="btn-logout" (click)="logout()">
+            <span class="icon">🚪</span>
+            <span>Cerrar Sesión</span>
+          </button>
+        </div>
       </nav>
       
       <main class="main-content">
@@ -60,7 +80,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
             <h1>Sistema de Gestión de Consultas y Denuncias</h1>
           </div>
           <div class="header-right">
-            <span class="user-info">👤 Usuario: Admin</span>
+            <span class="user-info">👤 Usuario: {{ getUsername() }}</span>
           </div>
         </header>
         
@@ -68,6 +88,10 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
           <router-outlet></router-outlet>
         </div>
       </main>
+    </div>
+
+    <div *ngIf="isLoginPage()">
+      <router-outlet></router-outlet>
     </div>
   `,
   styles: [`
@@ -83,6 +107,9 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       color: white;
       padding: 20px;
       box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     .logo {
@@ -107,6 +134,8 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       list-style: none;
       padding: 0;
       margin: 0;
+      flex: 1;
+      overflow-y: auto;
     }
 
     .menu li {
@@ -171,6 +200,36 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       padding: 30px;
     }
 
+    .sidebar-footer {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .btn-logout {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .btn-logout:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    .btn-logout .icon {
+      margin-right: 12px;
+      font-size: 18px;
+    }
+
     @media (max-width: 768px) {
       .sidebar {
         width: 80px;
@@ -187,9 +246,27 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       .subtitle {
         display: none;
       }
+
+      .btn-logout span:not(.icon) {
+        display: none;
+      }
     }
   `]
 })
 export class AppComponent {
   title = 'SUSALUD BPM';
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
+  isLoginPage(): boolean {
+    return this.router.url === '/login';
+  }
+
+  getUsername(): string {
+    return this.authService.getUsername() || 'Usuario';
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

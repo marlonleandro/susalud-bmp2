@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { CasoRepository } from '@domain/ports/caso.repository';
 import { WorkflowRepository } from '@domain/ports/workflow.repository';
 import { Caso } from '@domain/models/caso.model';
 import { HistorialWorkflow } from '@domain/models/workflow.model';
 
 @Component({
-  selector: 'app-caso-detail',
+  selector: 'app-pendiente-detail',
   standalone: true,
   imports: [CommonModule, RouterLink],
   template: `
-    <div class="caso-detail" *ngIf="caso">
+    <div class="pendiente-detail" *ngIf="caso">
       <div class="header">
         <div>
-          <a routerLink="/casos" class="back-link">← Volver a casos</a>
+          <a routerLink="/pendientes" class="back-link">← Volver a pendientes</a>
           <h2>Caso {{caso.numeroExpediente}}</h2>
         </div>
         <span class="estado-badge" [class]="getEstadoClase(caso.estado)">
@@ -194,23 +194,23 @@ import { HistorialWorkflow } from '@domain/models/workflow.model';
           </div>
 
           <div class="info-card">
-            <h3>Integración SGD</h3>
-            <div class="sgd-info">
-              <div class="sgd-item">
-                <label>ID SGD</label>
-                <span>{{caso.idSGD || 'No asignado'}}</span>
-              </div>
-              <button class="btn-sgd">Sincronizar con SGD</button>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <h3>Acciones</h3>
+            <h3>Acciones de Revisión</h3>
             <div class="actions-list">
-              <button class="action-btn">Cambiar Estado</button>
-              <button class="action-btn">Asignar Responsable</button>
-              <button class="action-btn">Generar Informe</button>
-              <button class="action-btn">Exportar PDF</button>
+              <button class="action-btn aprobar" (click)="aprobar()">
+                ✓ Aprobar Caso
+              </button>
+              <button class="action-btn rechazar" (click)="rechazar()">
+                ✕ Rechazar Caso
+              </button>
+              <button class="action-btn derivar" (click)="derivar()">
+                → Derivar Caso
+              </button>
+              <button class="action-btn generar" (click)="generarInforme()">
+                📄 Generar Informe
+              </button>
+              <button class="action-btn exportar" (click)="exportarPDF()">
+                📥 Exportar PDF
+              </button>
             </div>
           </div>
         </div>
@@ -218,7 +218,7 @@ import { HistorialWorkflow } from '@domain/models/workflow.model';
     </div>
   `,
   styles: [`
-    .caso-detail {
+    .pendiente-detail {
       max-width: 1400px;
       margin: 0 auto;
     }
@@ -258,6 +258,11 @@ import { HistorialWorkflow } from '@domain/models/workflow.model';
     .estado-badge.en-proceso {
       background: #fef3c7;
       color: #d97706;
+    }
+
+    .estado-badge.pendiente-informe {
+      background: #e9d5ff;
+      color: #7c3aed;
     }
 
     .estado-badge.resuelto {
@@ -342,6 +347,80 @@ import { HistorialWorkflow } from '@domain/models/workflow.model';
     .severidad-badge.severo {
       background: #fee2e2;
       color: #dc2626;
+    }
+
+    .establecimientos-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .establecimiento-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .establecimiento-header {
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .establecimiento-title {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .establecimiento-title strong {
+      font-size: 15px;
+      color: #1e293b;
+    }
+
+    .establecimiento-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #dbeafe;
+      color: #1e40af;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      width: fit-content;
+    }
+
+    .establecimiento-details {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .detail-col {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .detail-col.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .detail-col label {
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .detail-col span {
+      font-size: 14px;
+      color: #1e293b;
     }
 
     .timeline {
@@ -472,42 +551,6 @@ import { HistorialWorkflow } from '@domain/models/workflow.model';
       text-align: center;
     }
 
-    .sgd-info {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .sgd-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .sgd-item label {
-      font-size: 12px;
-      color: #64748b;
-      font-weight: 500;
-    }
-
-    .sgd-item span {
-      font-size: 14px;
-      color: #1e293b;
-    }
-
-    .btn-sgd {
-      padding: 10px;
-      background: #3b82f6;
-      color: white;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: background 0.2s;
-    }
-
-    .btn-sgd:hover {
-      background: #1e40af;
-    }
-
     .actions-list {
       display: flex;
       flex-direction: column;
@@ -515,93 +558,53 @@ import { HistorialWorkflow } from '@domain/models/workflow.model';
     }
 
     .action-btn {
-      padding: 10px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      padding: 12px;
+      border: none;
       border-radius: 8px;
       font-size: 14px;
-      font-weight: 500;
-      color: #475569;
+      font-weight: 600;
+      cursor: pointer;
       transition: all 0.2s;
+      text-align: left;
     }
 
-    .action-btn:hover {
-      background: #f1f5f9;
-      border-color: #cbd5e1;
+    .action-btn.aprobar {
+      background: #dcfce7;
+      color: #16a34a;
     }
 
-    .establecimientos-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    .action-btn.aprobar:hover {
+      background: #bbf7d0;
     }
 
-    .establecimiento-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 16px;
+    .action-btn.rechazar {
+      background: #fee2e2;
+      color: #dc2626;
     }
 
-    .establecimiento-header {
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #e2e8f0;
+    .action-btn.rechazar:hover {
+      background: #fecaca;
     }
 
-    .establecimiento-title {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .establecimiento-title strong {
-      font-size: 15px;
-      color: #1e293b;
-    }
-
-    .establecimiento-badge {
-      display: inline-block;
-      padding: 4px 12px;
+    .action-btn.derivar {
       background: #dbeafe;
       color: #1e40af;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      width: fit-content;
     }
 
-    .establecimiento-details {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .action-btn.derivar:hover {
+      background: #bfdbfe;
     }
 
-    .detail-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+    .action-btn.generar,
+    .action-btn.exportar {
+      background: #f8fafc;
+      color: #475569;
+      border: 1px solid #e2e8f0;
     }
 
-    .detail-col {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .detail-col.full-width {
-      grid-column: 1 / -1;
-    }
-
-    .detail-col label {
-      font-size: 12px;
-      color: #64748b;
-      font-weight: 500;
-    }
-
-    .detail-col span {
-      font-size: 14px;
-      color: #1e293b;
+    .action-btn.generar:hover,
+    .action-btn.exportar:hover {
+      background: #f1f5f9;
     }
 
     @media (max-width: 1024px) {
@@ -615,12 +618,13 @@ import { HistorialWorkflow } from '@domain/models/workflow.model';
     }
   `]
 })
-export class CasoDetailComponent implements OnInit {
+export class PendienteDetailComponent implements OnInit {
   caso: Caso | null = null;
   historial: HistorialWorkflow[] = [];
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private casoRepository: CasoRepository,
     private workflowRepository: WorkflowRepository
   ) {}
@@ -644,5 +648,36 @@ export class CasoDetailComponent implements OnInit {
 
   formatEstado(estado: string): string {
     return estado.replace('_', ' ');
+  }
+
+  aprobar() {
+    if (confirm('¿Está seguro de aprobar este caso?')) {
+      alert('Caso aprobado exitosamente');
+      this.router.navigate(['/pendientes']);
+    }
+  }
+
+  rechazar() {
+    const motivo = prompt('Ingrese el motivo del rechazo:');
+    if (motivo) {
+      alert('Caso rechazado exitosamente');
+      this.router.navigate(['/pendientes']);
+    }
+  }
+
+  derivar() {
+    const area = prompt('Ingrese el área a la que desea derivar:');
+    if (area) {
+      alert(`Caso derivado a ${area} exitosamente`);
+      this.router.navigate(['/pendientes']);
+    }
+  }
+
+  generarInforme() {
+    alert('Generando informe...');
+  }
+
+  exportarPDF() {
+    alert('Exportando a PDF...');
   }
 }

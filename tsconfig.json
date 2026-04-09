@@ -18,11 +18,16 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": ["ES2022", "dom"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
     "paths": {
       "@domain/*": ["src/app/domain/*"],
-      "@application/*": ["src/app/application/*"],
-      "@infrastructure/*": ["src/app/infrastructure/*"]
+      "@infrastructure/*": ["src/app/infrastructure/*"],
+      "@presentation/*": ["src/app/presentation/*"]
     }
   },
   "angularCompilerOptions": {
