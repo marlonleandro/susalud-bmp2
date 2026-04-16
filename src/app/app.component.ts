@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '@infrastructure/services/auth.service';
+import { ChatbotFlotanteComponent } from '@presentation/components/chatbot-flotante/chatbot-flotante.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, ChatbotFlotanteComponent],
   template: `
     <div class="app-container" *ngIf="!isLoginPage()">
       <nav class="sidebar">
@@ -99,6 +100,9 @@ import { AuthService } from '@infrastructure/services/auth.service';
     <div *ngIf="isLoginPage()">
       <router-outlet></router-outlet>
     </div>
+
+    <!-- Chatbot flotante global (solo visible cuando no es login) -->
+    <app-chatbot-flotante *ngIf="!isLoginPage()"></app-chatbot-flotante>
   `,
   styles: [`
     .app-container {
