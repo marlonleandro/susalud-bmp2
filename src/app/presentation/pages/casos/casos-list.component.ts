@@ -22,7 +22,7 @@ import { Caso } from '@domain/models/caso.model';
         
         <select [(ngModel)]="filtros.estado" (ngModelChange)="aplicarFiltros()" class="filter-select">
           <option value="">Todos los estados</option>
-          <option value="REGISTRADO">Registrado</option>
+          <option value="INGRESADO">Ingresado</option>
           <option value="EN_PROCESO">En Proceso</option>
           <option value="PENDIENTE_INFORME">Pendiente Informe</option>
           <option value="RESUELTO">Resuelto</option>

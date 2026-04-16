@@ -746,7 +746,7 @@ export class CasoFormComponent implements OnInit {
   caso: any = {
     tipoSolicitud: TipoSolicitud.CONSULTA,
     severidad: Severidad.LEVE,
-    estado: EstadoCaso.REGISTRADO,
+    estado: EstadoCaso.INGRESADO,
     canalIngreso: '',
     descripcion: '',
     solicitante: {

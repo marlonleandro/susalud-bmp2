@@ -10,7 +10,7 @@ export enum Severidad {
 }
 
 export enum EstadoCaso {
-  REGISTRADO = 'REGISTRADO',
+  INGRESADO = 'INGRESADO',
   EN_PROCESO = 'EN_PROCESO',
   PENDIENTE_INFORME = 'PENDIENTE_INFORME',
   RESUELTO = 'RESUELTO',

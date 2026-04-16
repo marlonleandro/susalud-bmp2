@@ -327,7 +327,7 @@ export class CasoMockRepository extends CasoRepository {
       competenciaPROTT: true,
       huboSolicitud: true,
       severidad: Severidad.MODERADO,
-      estado: EstadoCaso.REGISTRADO,
+      estado: EstadoCaso.INGRESADO,
       especialistaAsignado: {
         id: '7',
         nombres: 'LUIS',
@@ -611,7 +611,7 @@ export class CasoMockRepository extends CasoRepository {
       competenciaPROTT: false,
       huboSolicitud: false,
       severidad: Severidad.LEVE,
-      estado: EstadoCaso.REGISTRADO,
+      estado: EstadoCaso.INGRESADO,
       solicitante: {
         tipoDocumento: 'DNI',
         numeroDocumento: '09703229',
@@ -782,7 +782,7 @@ export class CasoMockRepository extends CasoRepository {
       competenciaPROTT: false,
       huboSolicitud: false,
       severidad: Severidad.LEVE,
-      estado: EstadoCaso.REGISTRADO,
+      estado: EstadoCaso.INGRESADO,
       solicitante: {
         tipoDocumento: 'DNI',
         numeroDocumento: '45678901',
@@ -1621,7 +1621,7 @@ export class CasoMockRepository extends CasoRepository {
       competenciaPROTT: false,
       huboSolicitud: false,
       severidad: Severidad.LEVE,
-      estado: EstadoCaso.REGISTRADO,
+      estado: EstadoCaso.INGRESADO,
       especialistaAsignado: {
         id: '7',
         nombres: 'LUIS',
@@ -1772,7 +1772,7 @@ export class CasoMockRepository extends CasoRepository {
       competenciaPROTT: false,
       huboSolicitud: false,
       severidad: Severidad.LEVE,
-      estado: EstadoCaso.REGISTRADO,
+      estado: EstadoCaso.INGRESADO,
       especialistaAsignado: {
         id: '2',
         nombres: 'CARMEN',
@@ -1999,7 +1999,7 @@ export class CasoMockRepository extends CasoRepository {
       competenciaPROTT: false,
       huboSolicitud: false,
       severidad: Severidad.LEVE,
-      estado: EstadoCaso.REGISTRADO,
+      estado: EstadoCaso.INGRESADO,
       especialistaAsignado: {
         id: '5',
         nombres: 'ROBERTO',
@@ -2075,7 +2075,7 @@ export class CasoMockRepository extends CasoRepository {
       competenciaPROTT: false,
       huboSolicitud: true,
       severidad: Severidad.MODERADO,
-      estado: EstadoCaso.REGISTRADO,
+      estado: EstadoCaso.INGRESADO,
       especialistaAsignado: {
         id: '10',
         nombres: 'ROSA',
@@ -2150,7 +2150,7 @@ export class CasoMockRepository extends CasoRepository {
       competenciaPROTT: false,
       huboSolicitud: false,
       severidad: Severidad.LEVE,
-      estado: EstadoCaso.REGISTRADO,
+      estado: EstadoCaso.INGRESADO,
       especialistaAsignado: {
         id: '12',
         nombres: 'ELENA',
@@ -2226,7 +2226,7 @@ export class CasoMockRepository extends CasoRepository {
       competenciaPROTT: true,
       huboSolicitud: true,
       severidad: Severidad.SEVERO,
-      estado: EstadoCaso.REGISTRADO,
+      estado: EstadoCaso.INGRESADO,
       especialistaAsignado: {
         id: '6',
         nombres: 'PATRICIA',
@@ -2301,7 +2301,7 @@ export class CasoMockRepository extends CasoRepository {
       competenciaPROTT: false,
       huboSolicitud: false,
       severidad: Severidad.LEVE,
-      estado: EstadoCaso.REGISTRADO,
+      estado: EstadoCaso.INGRESADO,
       especialistaAsignado: {
         id: '8',
         nombres: 'ANA',
@@ -2377,7 +2377,7 @@ export class CasoMockRepository extends CasoRepository {
       competenciaPROTT: false,
       huboSolicitud: true,
       severidad: Severidad.MODERADO,
-      estado: EstadoCaso.REGISTRADO,
+      estado: EstadoCaso.INGRESADO,
       especialistaAsignado: {
         id: '9',
         nombres: 'CARLOS',
