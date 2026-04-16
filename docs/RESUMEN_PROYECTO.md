@@ -28,6 +28,25 @@
 - Lista con filtros avanzados
 - Detalle completo de casos
 - 14 casos mock con datos completos
+- **Asignación de especialistas a casos**
+- Columna de especialista en listados
+- Visualización de especialista asignado en detalle
+
+### 3.1. Gestión de Especialistas
+**Características**:
+- Lista de especialistas con filtros
+- Registro de nuevos especialistas
+- Detalle completo de especialista
+- 12 especialistas mock con diferentes especialidades
+- Asignación de casos durante el registro
+- Estadísticas de casos asignados por especialista
+- Activación/desactivación de especialistas
+
+**Especialidades disponibles**:
+- Medicina General, Cardiología, Pediatría
+- Ginecología, Traumatología, Neurología
+- Dermatología, Oftalmología, Psiquiatría
+- Oncología, Cirugía General, Medicina Interna
 
 ### 4. Mis Pendientes
 - Bandeja de revisión para aprobadores
@@ -97,6 +116,15 @@
 - 4 Consultas, 10 Denuncias
 - 1-3 establecimientos por caso
 - Ubicaciones en todo el Perú
+- **6 casos con especialistas asignados**
+
+### Especialistas
+- **Total**: 12 especialistas médicos
+- 12 especialidades diferentes
+- Todos activos
+- Datos completos: documento, nombres, especialidad, fecha de ingreso
+- Información de contacto (email, teléfono)
+- Contador de casos asignados
 
 ## Arquitectura Técnica
 
@@ -141,6 +169,9 @@ src/app/
 | `/casos` | Lista de casos | Sí |
 | `/casos/nuevo` | Nuevo caso | Sí |
 | `/casos/:id` | Detalle caso | Sí |
+| `/especialistas` | Lista de especialistas | Sí |
+| `/especialistas/nuevo` | Nuevo especialista | Sí |
+| `/especialistas/:id` | Detalle especialista | Sí |
 | `/pendientes` | Mis pendientes | Sí |
 | `/pendientes/:id` | Detalle pendiente | Sí |
 | `/ipress` | Mapa IPRESS | Sí |
@@ -200,6 +231,7 @@ npm test
 4. [CASOS_MOCK.md](CASOS_MOCK.md) - Casos de prueba
 5. [IPRESS_MAPA.md](IPRESS_MAPA.md) - Módulo IPRESS
 6. [REPORTES_MAPA.md](REPORTES_MAPA.md) - Módulo Reportería
+7. [PLANNING.md](../PLANNING.md) - Planning y roadmap del proyecto
 
 ## Características Destacadas
 
@@ -270,5 +302,5 @@ Para más información sobre el proyecto, consultar la documentación en la carp
 ---
 
 **Última actualización**: Abril 2026  
-**Versión**: 1.0.0  
+**Versión**: 1.1.0  
 **Estado**: Producción

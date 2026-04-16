@@ -18,23 +18,32 @@ Aplicación frontend moderna desarrollada con Angular 17 y arquitectura hexagona
    - Gestión de establecimientos involucrados (IPRESS)
    - Base de datos de 35,408 establecimientos de salud del RENIPRESS
    - 14 casos mock con datos completos (incluyendo casos de enero, febrero y mayo 2026)
-4. **Mis Pendientes**: Vista para revisores con acciones de aprobación/rechazo
-5. **IPRESS - Mapa de Establecimientos**: 
+   - **Asignación de especialistas a casos**
+   - Visualización de especialista asignado en detalle y listados
+4. **Gestión de Especialistas**: Módulo completo para administrar médicos especialistas
+   - Lista de especialistas con filtros y búsqueda
+   - Registro de nuevos especialistas
+   - Detalle completo de especialista
+   - 12 especialistas mock con diferentes especialidades
+   - Asignación de casos a especialistas
+   - Estadísticas de casos asignados
+5. **Mis Pendientes**: Vista para revisores con acciones de aprobación/rechazo
+6. **IPRESS - Mapa de Establecimientos**: 
    - **Mapa interactivo del Perú con Highcharts Maps**
    - Filtros en cascada por Departamento → Provincia → Distrito
    - Lista de establecimientos con información detallada
    - Clic en departamento filtra automáticamente la lista
    - 35,408 establecimientos de salud del RENIPRESS
-6. **Reportería y Análisis**: 
+7. **Reportería y Análisis**: 
    - **Mapa interactivo de casos por departamento (Highcharts Maps)**
    - Filtros en cascada por ubicación del solicitante
    - Lista detallada de casos con información completa
    - **Gráfico de evolución mensual por severidad**
    - Tres líneas de tendencia (Leve, Moderado, Severo)
    - Análisis del año en curso (2026)
-7. **Workflow Configurable**: Procesos M2.P03, M2.P06 y M2.P07
-8. **IA Aplicada**: Clasificación inteligente y chatbot
-9. **Integración SGD**: Sincronización bidireccional
+8. **Workflow Configurable**: Procesos M2.P03, M2.P06 y M2.P07
+9. **IA Aplicada**: Clasificación inteligente y chatbot
+10. **Integración SGD**: Sincronización bidireccional
 
 ## 🗺️ Mapas Interactivos
 
@@ -82,11 +91,16 @@ El sistema redirigirá automáticamente a la página de login. Todas las rutas e
 
 - **UBIGEO**: 1,861 registros (Departamentos, Provincias, Distritos del INEI)
 - **IPRESS**: 35,408 establecimientos de salud (RENIPRESS)
+- **Especialistas**: 12 médicos especialistas con diferentes especialidades
+  - Medicina General, Cardiología, Pediatría, Ginecología
+  - Traumatología, Neurología, Dermatología, Oftalmología
+  - Psiquiatría, Oncología, Cirugía General, Medicina Interna
 - **Casos**: 14 casos completos con ubicación y establecimientos involucrados
   - 2 casos de enero 2026 (Leve, Moderado)
   - 2 casos de febrero 2026 (Severo, Leve)
   - 2 casos de mayo 2026 (Moderado, Severo)
   - 8 casos de marzo-abril 2026
+  - 6 casos con especialistas asignados
 
 ## Arquitectura
 
@@ -114,6 +128,9 @@ Arquitectura hexagonal (puertos y adaptadores):
 | `/casos` | Lista de casos | Sí |
 | `/casos/nuevo` | Formulario de nuevo caso | Sí |
 | `/casos/:id` | Detalle de caso | Sí |
+| `/especialistas` | Lista de especialistas | Sí |
+| `/especialistas/nuevo` | Registro de especialista | Sí |
+| `/especialistas/:id` | Detalle de especialista | Sí |
 | `/pendientes` | Mis pendientes (revisores) | Sí |
 | `/pendientes/:id` | Detalle de pendiente | Sí |
 | `/ipress` | Mapa de establecimientos de salud | Sí |
@@ -124,11 +141,10 @@ Arquitectura hexagonal (puertos y adaptadores):
 
 ## 📚 Documentación Adicional
 
-- [Sistema de Autenticación](docs/AUTENTICACION.md)
 - [Sistema de UBIGEO](docs/UBIGEO.md)
 - [Casos Mock de Prueba](docs/CASOS_MOCK.md)
-- [Módulo IPRESS - Mapa de Establecimientos](docs/IPRESS_MAPA.md)
-- [Módulo de Reportería - Mapa y Gráficos](docs/REPORTES_MAPA.md)
+- [Resumen del Proyecto](docs/RESUMEN_PROYECTO.md)
+- [Planning y Roadmap](PLANNING.md)
 
 ## 🛠️ Tecnologías
 
@@ -188,11 +204,10 @@ El sistema utiliza los primeros 2 dígitos del código UBIGEO para identificar d
 - 07: Callao (pe-cl)
 - 08: Cusco (pe-cs)
 - 10: Huánuco (pe-hc)
-- 15: Lima (pe-lp)
+- 15: Lima (pe-lr)
 - 18: Moquegua (pe-mq)
 - ... (25 departamentos en total)
 
-Ver [docs/IPRESS_MAPA.md](docs/IPRESS_MAPA.md) y [docs/REPORTES_MAPA.md](docs/REPORTES_MAPA.md) para más detalles sobre la implementación de los mapas.
 
 ### Estructura de Casos Mock
 Los casos incluyen información completa:

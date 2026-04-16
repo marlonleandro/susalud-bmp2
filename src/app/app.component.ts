@@ -64,6 +64,12 @@ import { AuthService } from '@infrastructure/services/auth.service';
               <span>Integración SGD</span>
             </a>
           </li>
+          <li>
+            <a routerLink="/especialistas" routerLinkActive="active">
+              <span class="icon">👨‍⚕️</span>
+              <span>Especialistas</span>
+            </a>
+          </li>
         </ul>
 
         <div class="sidebar-footer">

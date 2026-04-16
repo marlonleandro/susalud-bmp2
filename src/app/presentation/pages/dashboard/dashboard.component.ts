@@ -107,6 +107,8 @@ import { Caso, EstadoCaso, Severidad } from '@domain/models/caso.model';
                 <th>Expediente</th>
                 <th>Tipo</th>
                 <th>Solicitante</th>
+                <th>Afectado</th>
+                <th>Especialista</th>
                 <th>Severidad</th>
                 <th>Estado</th>
                 <th>Días</th>
@@ -123,6 +125,14 @@ import { Caso, EstadoCaso, Severidad } from '@domain/models/caso.model';
                   </span>
                 </td>
                 <td>{{caso.solicitante.nombres}} {{caso.solicitante.apellidoPaterno}}</td>
+                <td>{{caso.afectado.nombres}} {{caso.afectado.apellidoPaterno}}</td>
+                <td>
+                  <span *ngIf="caso.especialistaAsignado" class="especialista-badge" 
+                        [title]="caso.especialistaAsignado.nombres + ' ' + caso.especialistaAsignado.apellidoPaterno">
+                    {{caso.especialistaAsignado.apellidoPaterno}}
+                  </span>
+                  <span *ngIf="!caso.especialistaAsignado" class="sin-asignar">-</span>
+                </td>
                 <td>
                   <span class="severidad-badge" [class]="caso.severidad.toLowerCase()">
                     {{caso.severidad}}
@@ -255,6 +265,11 @@ import { Caso, EstadoCaso, Severidad } from '@domain/models/caso.model';
     .stat-trend.stable {
       background: #f1f5f9;
       color: #64748b;
+    }
+
+    .text-muted {
+      color: #94a3b8;
+      font-style: italic;
     }
 
     .charts-grid {
@@ -493,6 +508,22 @@ import { Caso, EstadoCaso, Severidad } from '@domain/models/caso.model';
     .severidad-badge.severo {
       background: #fee2e2;
       color: #dc2626;
+    }
+
+    .especialista-badge {
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      background: #dbeafe;
+      color: #1e40af;
+      display: inline-block;
+      cursor: help;
+    }
+
+    .sin-asignar {
+      font-size: 12px;
+      color: #94a3b8;
     }
 
     .text-danger {

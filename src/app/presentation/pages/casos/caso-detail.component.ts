@@ -58,6 +58,26 @@ import { HistorialWorkflow } from '@domain/models/workflow.model';
             </div>
           </div>
 
+          <div class="info-card" *ngIf="caso.especialistaAsignado">
+            <h3>Especialista Asignado</h3>
+            <div class="especialista-info">
+              <div class="especialista-avatar">
+                👨‍⚕️
+              </div>
+              <div class="especialista-datos">
+                <div class="especialista-nombre">
+                  {{caso.especialistaAsignado.nombres}} {{caso.especialistaAsignado.apellidoPaterno}} {{caso.especialistaAsignado.apellidoMaterno}}
+                </div>
+                <div class="especialista-especialidad">
+                  {{caso.especialistaAsignado.especialidad}}
+                </div>
+                <a [routerLink]="['/especialistas', caso.especialistaAsignado.id]" class="ver-perfil">
+                  Ver perfil completo →
+                </a>
+              </div>
+            </div>
+          </div>
+
           <div class="info-card">
             <h3>Descripción del Caso</h3>
             <p>{{caso.descripcion}}</p>
@@ -89,6 +109,54 @@ import { HistorialWorkflow } from '@domain/models/workflow.model';
               <div class="info-item">
                 <label>Ubicación</label>
                 <span>{{caso.solicitante.distrito}}, {{caso.solicitante.provincia}}, {{caso.solicitante.departamento}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h3>Datos del Afectado</h3>
+            <div class="info-grid">
+              <div class="info-item">
+                <label>Documento</label>
+                <span>{{caso.afectado.tipoDocumento}}: {{caso.afectado.numeroDocumento}}</span>
+              </div>
+              <div class="info-item">
+                <label>Nombres Completos</label>
+                <span>{{caso.afectado.nombres}} {{caso.afectado.apellidoPaterno}} {{caso.afectado.apellidoMaterno}}</span>
+              </div>
+              <div class="info-item">
+                <label>Fecha de Nacimiento</label>
+                <span>{{caso.afectado.fechaNacimiento | date:'dd/MM/yyyy'}}</span>
+              </div>
+              <div class="info-item">
+                <label>Género</label>
+                <span>{{caso.afectado.genero}}</span>
+              </div>
+              <div class="info-item">
+                <label>Historia Clínica</label>
+                <span>{{caso.afectado.numeroHistoriaClinica || 'No registrado'}}</span>
+              </div>
+              <div class="info-item">
+                <label>Tipo de Seguro</label>
+                <span class="seguro-badge" [class]="caso.afectado.tipoSeguro.toLowerCase()">
+                  {{caso.afectado.tipoSeguro}}
+                </span>
+              </div>
+              <div class="info-item">
+                <label>Correo Electrónico</label>
+                <span>{{caso.afectado.correoElectronico || 'No registrado'}}</span>
+              </div>
+              <div class="info-item">
+                <label>Teléfono</label>
+                <span>{{caso.afectado.telefono || 'No registrado'}}</span>
+              </div>
+              <div class="info-item">
+                <label>Dirección</label>
+                <span>{{caso.afectado.direccion}}</span>
+              </div>
+              <div class="info-item">
+                <label>Ubicación</label>
+                <span>{{caso.afectado.distrito}}, {{caso.afectado.provincia}}, {{caso.afectado.departamento}}</span>
               </div>
             </div>
           </div>
@@ -342,6 +410,80 @@ import { HistorialWorkflow } from '@domain/models/workflow.model';
     .severidad-badge.severo {
       background: #fee2e2;
       color: #dc2626;
+    }
+
+    .seguro-badge {
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .seguro-badge.essalud {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .seguro-badge.eps {
+      background: #e0e7ff;
+      color: #4338ca;
+    }
+
+    .seguro-badge.otro {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+
+    .especialista-info {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 16px;
+      background: #f8fafc;
+      border-radius: 8px;
+    }
+
+    .especialista-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+
+    .especialista-datos {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .especialista-nombre {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .especialista-especialidad {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .ver-perfil {
+      font-size: 13px;
+      color: #3b82f6;
+      text-decoration: none;
+      margin-top: 4px;
+    }
+
+    .ver-perfil:hover {
+      text-decoration: underline;
     }
 
     .timeline {

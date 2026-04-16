@@ -51,6 +51,8 @@ import { Caso } from '@domain/models/caso.model';
               <th>Fecha Registro</th>
               <th>Tipo</th>
               <th>Solicitante</th>
+              <th>Afectado</th>
+              <th>Especialista</th>
               <th>Macro Región</th>
               <th>Severidad</th>
               <th>Estado</th>
@@ -68,6 +70,14 @@ import { Caso } from '@domain/models/caso.model';
                 </span>
               </td>
               <td>{{caso.solicitante.nombres}} {{caso.solicitante.apellidoPaterno}}</td>
+              <td>{{caso.afectado.nombres}} {{caso.afectado.apellidoPaterno}}</td>
+              <td>
+                <span *ngIf="caso.especialistaAsignado" class="especialista-badge" 
+                      [title]="caso.especialistaAsignado.nombres + ' ' + caso.especialistaAsignado.apellidoPaterno">
+                  {{caso.especialistaAsignado.apellidoPaterno}}
+                </span>
+                <span *ngIf="!caso.especialistaAsignado" class="sin-asignar">Sin asignar</span>
+              </td>
               <td>{{caso.macroRegion}}</td>
               <td>
                 <span class="severidad-badge" [class]="caso.severidad.toLowerCase()">
@@ -268,6 +278,23 @@ import { Caso } from '@domain/models/caso.model';
       color: #64748b;
     }
 
+    .especialista-badge {
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      background: #dbeafe;
+      color: #1e40af;
+      display: inline-block;
+      cursor: help;
+    }
+
+    .sin-asignar {
+      font-size: 12px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
     .sla-info {
       display: flex;
       flex-direction: column;
@@ -294,6 +321,11 @@ import { Caso } from '@domain/models/caso.model';
     .text-danger {
       color: #dc2626;
       font-weight: 600;
+    }
+
+    .text-muted {
+      color: #94a3b8;
+      font-style: italic;
     }
 
     .actions {
