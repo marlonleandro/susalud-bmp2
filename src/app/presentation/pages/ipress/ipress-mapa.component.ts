@@ -79,6 +79,17 @@ MapModule(Highcharts);
     .card p { margin: 0.25rem 0; font-size: 0.85rem; color: #6b7280; }
     .card p strong { color: #374151; }
     .map { flex: 1; }
+
+    /* Responsive: pantallas menores de 800px */
+    @media (max-width: 800px) {
+      .container { padding: 1rem; }
+      .content { padding: 1rem; }
+      .layout { flex-direction: column; }
+      .list { width: 100%; max-height: 400px; }
+      .map { width: 100%; }
+      .filters { gap: 0.5rem; }
+      select { min-width: 140px; font-size: 0.85rem; }
+    }
   `]
 })
 export class IpressMapaComponent implements OnInit, AfterViewInit {

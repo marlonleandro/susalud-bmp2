@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthRepository } from '@domain/ports/auth.repository';
 import { LoginCredentials } from '@domain/models/auth.model';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   template: `
     <div class="login-container">
       <div class="login-card">
@@ -59,6 +59,11 @@ import { LoginCredentials } from '@domain/models/auth.model';
 
         <div class="login-footer">
           <p class="help-text">Usuario de prueba: <strong>admin</strong> / Contraseña: <strong>admin123</strong></p>
+          <div class="public-link">
+            <a [routerLink]="['/registro-publico-caso']" class="link-registro">
+              ¿Desea registrar una consulta o denuncia? Haga clic aquí
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -192,6 +197,24 @@ import { LoginCredentials } from '@domain/models/auth.model';
 
     .help-text strong {
       color: #2d3748;
+    }
+
+    .public-link {
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .link-registro {
+      color: #667eea;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .link-registro:hover {
+      color: #764ba2;
+      text-decoration: underline;
     }
 
     @media (max-width: 480px) {

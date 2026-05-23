@@ -8,6 +8,10 @@ export const routes: Routes = [
     loadComponent: () => import('./presentation/pages/login/login.component').then(m => m.LoginComponent)
   },
   {
+    path: 'registro-publico-caso',
+    loadComponent: () => import('./presentation/pages/registro-publico/registro-publico-caso.component').then(m => m.RegistroPublicoCasoComponent)
+  },
+  {
     path: 'dashboard',
     loadComponent: () => import('./presentation/pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
     canActivate: [authGuard]

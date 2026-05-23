@@ -365,6 +365,62 @@ import { ChatbotFlotanteComponent } from '@presentation/components/chatbot-flota
         font-size: 14px;
       }
     }
+
+    /* Responsive: pantallas menores de 800px */
+    @media (max-width: 800px) {
+      /* Forzar sidebar colapsado */
+      .sidebar {
+        width: 72px !important;
+        padding: 20px 10px !important;
+      }
+
+      .sidebar .logo {
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .sidebar .menu a {
+        padding: 12px !important;
+        justify-content: center;
+      }
+
+      .sidebar .icon {
+        margin-right: 0 !important;
+      }
+
+      .sidebar .label {
+        max-width: 0 !important;
+        opacity: 0 !important;
+      }
+
+      .sidebar .btn-logout {
+        padding: 12px !important;
+        justify-content: center;
+      }
+
+      .sidebar .btn-logout .icon {
+        margin-right: 0 !important;
+      }
+
+      /* Ocultar botón hamburguesa */
+      .hamburger-btn {
+        display: none !important;
+      }
+
+      /* Ajustar header sin el botón hamburguesa */
+      .header-left {
+        gap: 0 !important;
+      }
+
+      .header {
+        padding: 0 15px;
+      }
+
+      .content {
+        padding: 15px;
+      }
+    }
   `]
 })
 export class AppComponent {
@@ -374,7 +430,7 @@ export class AppComponent {
   private router = inject(Router);
 
   isLoginPage(): boolean {
-    return this.router.url === '/login';
+    return this.router.url === '/login' || this.router.url === '/registro-publico-caso';
   }
 
   getUsername(): string {
