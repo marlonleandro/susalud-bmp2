@@ -5,9 +5,11 @@ import { Router } from '@angular/router';
 import { CasoRepository } from '@domain/ports/caso.repository';
 import { UbigeoRepository } from '@domain/ports/ubigeo.repository';
 import { IpressRepository } from '@domain/ports/ipress.repository';
+import { EspecialistaRepository } from '@domain/ports/especialista.repository';
 import { Caso, TipoSolicitud, Severidad, EstadoCaso } from '@domain/models/caso.model';
 import { Departamento, Provincia, Distrito } from '@domain/models/ubigeo.model';
 import { Ipress } from '@domain/models/ipress.model';
+import { Especialista } from '@domain/models/especialista.model';
 
 @Component({
   selector: 'app-caso-form',
@@ -158,6 +160,160 @@ import { Ipress } from '@domain/models/ipress.model';
               </select>
               <small *ngIf="!provinciaSeleccionada" class="help-text">
                 Primero seleccione una provincia
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Datos del Afectado</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Tipo de Documento *</label>
+              <select [(ngModel)]="caso.afectado.tipoDocumento" name="afectadoTipoDocumento" required>
+                <option value="DNI">DNI</option>
+                <option value="CE">Carnet de Extranjería</option>
+                <option value="Pasaporte">Pasaporte</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Número de Documento *</label>
+              <input type="text" [(ngModel)]="caso.afectado.numeroDocumento" name="afectadoNumeroDocumento" required>
+            </div>
+
+            <div class="form-group">
+              <label>Fecha de Nacimiento *</label>
+              <input type="date" [(ngModel)]="caso.afectado.fechaNacimiento" name="afectadoFechaNacimiento" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombres *</label>
+              <input type="text" [(ngModel)]="caso.afectado.nombres" name="afectadoNombres" required>
+            </div>
+
+            <div class="form-group">
+              <label>Apellido Paterno *</label>
+              <input type="text" [(ngModel)]="caso.afectado.apellidoPaterno" name="afectadoApellidoPaterno" required>
+            </div>
+
+            <div class="form-group">
+              <label>Apellido Materno *</label>
+              <input type="text" [(ngModel)]="caso.afectado.apellidoMaterno" name="afectadoApellidoMaterno" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Género *</label>
+              <select [(ngModel)]="caso.afectado.genero" name="afectadoGenero" required>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Número de Historia Clínica</label>
+              <input type="text" [(ngModel)]="caso.afectado.numeroHistoriaClinica" name="afectadoHistoriaClinica">
+            </div>
+
+            <div class="form-group">
+              <label>Tipo de Seguro *</label>
+              <select [(ngModel)]="caso.afectado.tipoSeguro" name="afectadoTipoSeguro" required>
+                <option value="ESSALUD">ESSALUD</option>
+                <option value="EPS">EPS</option>
+                <option value="OTRO">OTRO</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Correo Electrónico</label>
+              <input type="email" [(ngModel)]="caso.afectado.correoElectronico" name="afectadoCorreoElectronico">
+            </div>
+
+            <div class="form-group">
+              <label>Teléfono</label>
+              <input type="tel" [(ngModel)]="caso.afectado.telefono" name="afectadoTelefono">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Dirección *</label>
+            <input type="text" [(ngModel)]="caso.afectado.direccion" name="afectadoDireccion" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Departamento *</label>
+              <select 
+                [(ngModel)]="departamentoAfectado" 
+                name="afectadoDepartamento" 
+                (change)="onDepartamentoAfectadoChange()"
+                required>
+                <option value="">Seleccione un departamento...</option>
+                <option *ngFor="let dept of departamentos" [value]="dept.codigo">
+                  {{dept.nombre}}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Provincia *</label>
+              <select 
+                [(ngModel)]="provinciaAfectado" 
+                name="afectadoProvincia"
+                (change)="onProvinciaAfectadoChange()"
+                [disabled]="!departamentoAfectado"
+                required>
+                <option value="">Seleccione una provincia...</option>
+                <option *ngFor="let prov of provinciasAfectado" [value]="prov.codigo">
+                  {{prov.nombre}}
+                </option>
+              </select>
+              <small *ngIf="!departamentoAfectado" class="help-text">
+                Primero seleccione un departamento
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Distrito *</label>
+              <select 
+                [(ngModel)]="distritoAfectado" 
+                name="afectadoDistrito"
+                (change)="onDistritoAfectadoChange()"
+                [disabled]="!provinciaAfectado"
+                required>
+                <option value="">Seleccione un distrito...</option>
+                <option *ngFor="let dist of distritosAfectado" [value]="dist.codigo">
+                  {{dist.nombre}}
+                </option>
+              </select>
+              <small *ngIf="!provinciaAfectado" class="help-text">
+                Primero seleccione una provincia
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Asignación de Especialista</h3>
+          
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label>Especialista Asignado</label>
+              <select [(ngModel)]="especialistaSeleccionado" name="especialistaAsignado">
+                <option value="">Sin asignar</option>
+                <option *ngFor="let esp of especialistas" [value]="esp.id">
+                  {{esp.nombres}} {{esp.apellidoPaterno}} {{esp.apellidoMaterno}} - {{esp.especialidad}}
+                </option>
+              </select>
+              <small class="help-text">
+                Seleccione un especialista para asignar este caso (opcional)
               </small>
             </div>
           </div>
@@ -547,7 +703,12 @@ export class CasoFormComponent implements OnInit {
   private casoRepository = inject(CasoRepository);
   private ubigeoRepository = inject(UbigeoRepository);
   private ipressRepository = inject(IpressRepository);
+  private especialistaRepository = inject(EspecialistaRepository);
   private router = inject(Router);
+
+  // Listas de especialistas
+  especialistas: Especialista[] = [];
+  especialistaSeleccionado = '';
 
   // Listas de ubigeo para solicitante
   departamentos: Departamento[] = [];
@@ -558,6 +719,15 @@ export class CasoFormComponent implements OnInit {
   departamentoSeleccionado = '';
   provinciaSeleccionada = '';
   distritoSeleccionado = '';
+
+  // Listas de ubigeo para afectado
+  provinciasAfectado: Provincia[] = [];
+  distritosAfectado: Distrito[] = [];
+
+  // Valores seleccionados para afectado
+  departamentoAfectado = '';
+  provinciaAfectado = '';
+  distritoAfectado = '';
 
   // Listas de ubigeo para IPRESS
   provinciasIpress: Provincia[] = [];
@@ -576,7 +746,7 @@ export class CasoFormComponent implements OnInit {
   caso: any = {
     tipoSolicitud: TipoSolicitud.CONSULTA,
     severidad: Severidad.LEVE,
-    estado: EstadoCaso.REGISTRADO,
+    estado: EstadoCaso.INGRESADO,
     canalIngreso: '',
     descripcion: '',
     solicitante: {
@@ -594,6 +764,23 @@ export class CasoFormComponent implements OnInit {
       genero: 'Masculino',
       fechaNacimiento: new Date()
     },
+    afectado: {
+      tipoDocumento: 'DNI',
+      numeroDocumento: '',
+      nombres: '',
+      apellidoPaterno: '',
+      apellidoMaterno: '',
+      fechaNacimiento: new Date(),
+      numeroHistoriaClinica: '',
+      tipoSeguro: 'ESSALUD',
+      correoElectronico: '',
+      telefono: '',
+      direccion: '',
+      departamento: '',
+      provincia: '',
+      distrito: '',
+      genero: 'Masculino'
+    },
     fechaRegistro: new Date(),
     fechaRecepcion: new Date(),
     areaActual: 'Equipo de Intermediación',
@@ -608,11 +795,18 @@ export class CasoFormComponent implements OnInit {
 
   ngOnInit() {
     this.cargarDepartamentos();
+    this.cargarEspecialistas();
   }
 
   cargarDepartamentos() {
     this.ubigeoRepository.obtenerDepartamentos().subscribe(departamentos => {
       this.departamentos = departamentos;
+    });
+  }
+
+  cargarEspecialistas() {
+    this.especialistaRepository.obtenerActivos().subscribe(especialistas => {
+      this.especialistas = especialistas;
     });
   }
 
@@ -698,6 +892,20 @@ export class CasoFormComponent implements OnInit {
       categoria: ipress.categoria,
       telefono: ipress.telefono
     }));
+
+    // Agregar especialista asignado si fue seleccionado
+    if (this.especialistaSeleccionado) {
+      const especialista = this.especialistas.find(e => e.id === this.especialistaSeleccionado);
+      if (especialista) {
+        this.caso.especialistaAsignado = {
+          id: especialista.id,
+          nombres: especialista.nombres,
+          apellidoPaterno: especialista.apellidoPaterno,
+          apellidoMaterno: especialista.apellidoMaterno,
+          especialidad: especialista.especialidad
+        };
+      }
+    }
     
     this.casoRepository.crear(this.caso).subscribe(() => {
       alert('Caso registrado exitosamente');
@@ -780,5 +988,62 @@ export class CasoFormComponent implements OnInit {
 
   eliminarIpress(index: number) {
     this.establecimientosAgregados.splice(index, 1);
+  }
+
+  // Métodos para Afectado
+  onDepartamentoAfectadoChange() {
+    this.provinciaAfectado = '';
+    this.distritoAfectado = '';
+    this.provinciasAfectado = [];
+    this.distritosAfectado = [];
+    this.caso.afectado.provincia = '';
+    this.caso.afectado.distrito = '';
+
+    if (this.departamentoAfectado) {
+      const dept = this.departamentos.find(d => d.codigo === this.departamentoAfectado);
+      if (dept) {
+        this.caso.afectado.departamento = dept.nombre;
+      }
+
+      this.ubigeoRepository.obtenerProvinciasPorDepartamento(this.departamentoAfectado)
+        .subscribe(provincias => {
+          this.provinciasAfectado = provincias;
+        });
+    } else {
+      this.caso.afectado.departamento = '';
+    }
+  }
+
+  onProvinciaAfectadoChange() {
+    this.distritoAfectado = '';
+    this.distritosAfectado = [];
+    this.caso.afectado.distrito = '';
+
+    if (this.provinciaAfectado) {
+      const prov = this.provinciasAfectado.find(p => p.codigo === this.provinciaAfectado);
+      if (prov) {
+        this.caso.afectado.provincia = prov.nombre;
+      }
+
+      this.ubigeoRepository.obtenerDistritosPorProvincia(
+        this.departamentoAfectado,
+        this.provinciaAfectado
+      ).subscribe(distritos => {
+        this.distritosAfectado = distritos;
+      });
+    } else {
+      this.caso.afectado.provincia = '';
+    }
+  }
+
+  onDistritoAfectadoChange() {
+    if (this.distritoAfectado) {
+      const dist = this.distritosAfectado.find(d => d.codigo === this.distritoAfectado);
+      if (dist) {
+        this.caso.afectado.distrito = dist.nombre;
+      }
+    } else {
+      this.caso.afectado.distrito = '';
+    }
   }
 }

@@ -8,6 +8,10 @@ export const routes: Routes = [
     loadComponent: () => import('./presentation/pages/login/login.component').then(m => m.LoginComponent)
   },
   {
+    path: 'registro-publico-caso',
+    loadComponent: () => import('./presentation/pages/registro-publico/registro-publico-caso.component').then(m => m.RegistroPublicoCasoComponent)
+  },
+  {
     path: 'dashboard',
     loadComponent: () => import('./presentation/pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
     canActivate: [authGuard]
@@ -60,6 +64,21 @@ export const routes: Routes = [
   {
     path: 'sgd',
     loadComponent: () => import('./presentation/pages/sgd/sgd.component').then(m => m.SGDComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'especialistas',
+    loadComponent: () => import('./presentation/pages/especialistas/especialistas-list.component').then(m => m.EspecialistasListComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'especialistas/nuevo',
+    loadComponent: () => import('./presentation/pages/especialistas/especialista-form.component').then(m => m.EspecialistaFormComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'especialistas/:id',
+    loadComponent: () => import('./presentation/pages/especialistas/especialista-detail.component').then(m => m.EspecialistaDetailComponent),
     canActivate: [authGuard]
   }
 ];

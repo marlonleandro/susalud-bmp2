@@ -12,6 +12,8 @@ import { UbigeoRepository } from '@domain/ports/ubigeo.repository';
 import { UbigeoMockRepository } from '@infrastructure/mock/ubigeo-mock.repository';
 import { IpressRepository } from '@domain/ports/ipress.repository';
 import { IpressMockRepository } from '@infrastructure/mock/ipress-mock.repository';
+import { EspecialistaRepository } from '@domain/ports/especialista.repository';
+import { EspecialistaMockRepository } from '@infrastructure/mock/especialista-mock.repository';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,6 +23,7 @@ export const appConfig: ApplicationConfig = {
     { provide: WorkflowRepository, useClass: WorkflowMockRepository },
     { provide: AuthRepository, useClass: AuthMockRepository },
     { provide: UbigeoRepository, useClass: UbigeoMockRepository },
-    { provide: IpressRepository, useClass: IpressMockRepository }
+    { provide: IpressRepository, useClass: IpressMockRepository },
+    { provide: EspecialistaRepository, useClass: EspecialistaMockRepository }
   ]
 };

@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-ia',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   template: `
     <div class="ia-module">
       <h2>Módulo de IA Aplicada</h2>
@@ -60,30 +59,15 @@ import { FormsModule } from '@angular/forms';
         </div>
       </div>
 
-      <div class="chatbot-section">
-        <h3>Asistente Virtual - Prueba en Vivo</h3>
-        <div class="chatbot-container">
-          <div class="chat-messages">
-            <div class="message bot">
-              <div class="message-avatar">🤖</div>
-              <div class="message-content">
-                <p>¡Hola! Soy el asistente virtual de SUSALUD. ¿En qué puedo ayudarte hoy?</p>
-              </div>
-            </div>
-            
-            <div class="message user" *ngFor="let msg of mensajes">
-              <div class="message-content">
-                <p>{{msg.texto}}</p>
-              </div>
-              <div class="message-avatar">👤</div>
-            </div>
-          </div>
-          
-          <div class="chat-input">
-            <input type="text" [(ngModel)]="mensajeActual" 
-                   (keyup.enter)="enviarMensaje()"
-                   placeholder="Escribe tu consulta...">
-            <button (click)="enviarMensaje()">Enviar</button>
+      <div class="info-section">
+        <div class="info-card">
+          <div class="info-icon">💬</div>
+          <h3>Asistente Virtual Disponible</h3>
+          <p>El chatbot de IA está disponible en todas las páginas del sistema. Haz clic en el botón flotante en la esquina inferior derecha para interactuar con el asistente.</p>
+          <div class="info-features">
+            <div class="feature-item">✓ Disponible 24/7</div>
+            <div class="feature-item">✓ Respuestas instantáneas</div>
+            <div class="feature-item">✓ Contexto del sistema</div>
           </div>
         </div>
       </div>
@@ -216,7 +200,7 @@ import { FormsModule } from '@angular/forms';
       color: #64748b;
     }
 
-    .chatbot-section {
+    .info-section {
       background: white;
       border-radius: 12px;
       padding: 24px;
@@ -224,97 +208,48 @@ import { FormsModule } from '@angular/forms';
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    .chatbot-container {
-      border: 1px solid #e2e8f0;
+    .info-card {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
       border-radius: 12px;
-      overflow: hidden;
+      border: 2px dashed #667eea;
     }
 
-    .chat-messages {
-      height: 400px;
-      overflow-y: auto;
-      padding: 20px;
-      background: #f8fafc;
+    .info-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
     }
 
-    .message {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .message.bot {
-      justify-content: flex-start;
-    }
-
-    .message.user {
-      justify-content: flex-end;
-    }
-
-    .message-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .info-card h3 {
       font-size: 24px;
-      flex-shrink: 0;
+      color: #1e293b;
+      margin-bottom: 12px;
     }
 
-    .message-content {
-      max-width: 70%;
-      padding: 12px 16px;
-      border-radius: 12px;
+    .info-card p {
+      color: #64748b;
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto 24px;
+      line-height: 1.6;
     }
 
-    .message.bot .message-content {
-      background: white;
-      border: 1px solid #e2e8f0;
-    }
-
-    .message.user .message-content {
-      background: #3b82f6;
-      color: white;
-    }
-
-    .message-content p {
-      margin: 0;
-      font-size: 14px;
-    }
-
-    .chat-input {
+    .info-features {
       display: flex;
-      padding: 16px;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .feature-item {
+      padding: 8px 16px;
       background: white;
-      border-top: 1px solid #e2e8f0;
-    }
-
-    .chat-input input {
-      flex: 1;
-      padding: 12px;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px 0 0 8px;
+      border-radius: 20px;
       font-size: 14px;
-    }
-
-    .chat-input input:focus {
-      outline: none;
-      border-color: #3b82f6;
-    }
-
-    .chat-input button {
-      padding: 12px 24px;
-      background: #3b82f6;
-      color: white;
-      border-radius: 0 8px 8px 0;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-
-    .chat-input button:hover {
-      background: #1e40af;
+      color: #667eea;
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .analytics-section {
@@ -434,20 +369,5 @@ import { FormsModule } from '@angular/forms';
   `]
 })
 export class IAComponent {
-  mensajeActual = '';
-  mensajes: any[] = [];
-
-  enviarMensaje() {
-    if (this.mensajeActual.trim()) {
-      this.mensajes.push({ texto: this.mensajeActual, tipo: 'user' });
-      this.mensajeActual = '';
-      
-      setTimeout(() => {
-        this.mensajes.push({ 
-          texto: 'Gracias por tu consulta. Estoy procesando tu solicitud...', 
-          tipo: 'bot' 
-        });
-      }, 1000);
-    }
-  }
+  // El chatbot ahora es un componente flotante global
 }

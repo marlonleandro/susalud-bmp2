@@ -79,6 +79,17 @@ MapModule(Highcharts);
     .card p { margin: 0.25rem 0; font-size: 0.85rem; color: #6b7280; }
     .card p strong { color: #374151; }
     .map { flex: 1; }
+
+    /* Responsive: pantallas menores de 800px */
+    @media (max-width: 800px) {
+      .container { padding: 1rem; }
+      .content { padding: 1rem; }
+      .layout { flex-direction: column; }
+      .list { width: 100%; max-height: 400px; }
+      .map { width: 100%; }
+      .filters { gap: 0.5rem; }
+      select { min-width: 140px; font-size: 0.85rem; }
+    }
   `]
 })
 export class IpressMapaComponent implements OnInit, AfterViewInit {
@@ -95,7 +106,7 @@ export class IpressMapaComponent implements OnInit, AfterViewInit {
   private deptCodeToHcKey: any = {
     '01':'pe-am', '02':'pe-an', '03':'pe-ap', '04':'pe-ar', '05':'pe-ay',
     '06':'pe-cj', '07':'pe-cl', '08':'pe-cs', '09':'pe-hv', '10':'pe-hc',
-    '11':'pe-ic', '12':'pe-ju', '13':'pe-ll', '14':'pe-lb', '15':'pe-lp',
+    '11':'pe-ic', '12':'pe-ju', '13':'pe-ll', '14':'pe-lb', '15':'pe-lr',
     '16':'pe-lo', '17':'pe-md', '18':'pe-mq', '19':'pe-pa', '20':'pe-pi',
     '21':'pe-pu', '22':'pe-sm', '23':'pe-ta', '24':'pe-tu', '25':'pe-uc'
   };
@@ -104,7 +115,7 @@ export class IpressMapaComponent implements OnInit, AfterViewInit {
   private hcKeyToDeptCode: any = {
     'pe-am':'01', 'pe-an':'02', 'pe-ap':'03', 'pe-ar':'04', 'pe-ay':'05',
     'pe-cj':'06', 'pe-cl':'07', 'pe-cs':'08', 'pe-hv':'09', 'pe-hc':'10',
-    'pe-ic':'11', 'pe-ju':'12', 'pe-ll':'13', 'pe-lb':'14', 'pe-lp':'15',
+    'pe-ic':'11', 'pe-ju':'12', 'pe-ll':'13', 'pe-lb':'14', 'pe-lr':'15',
     'pe-lo':'16', 'pe-md':'17', 'pe-mq':'18', 'pe-pa':'19', 'pe-pi':'20',
     'pe-pu':'21', 'pe-sm':'22', 'pe-ta':'23', 'pe-tu':'24', 'pe-uc':'25'
   };

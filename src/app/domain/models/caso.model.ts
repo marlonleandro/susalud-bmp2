@@ -10,7 +10,7 @@ export enum Severidad {
 }
 
 export enum EstadoCaso {
-  REGISTRADO = 'REGISTRADO',
+  INGRESADO = 'INGRESADO',
   EN_PROCESO = 'EN_PROCESO',
   PENDIENTE_INFORME = 'PENDIENTE_INFORME',
   RESUELTO = 'RESUELTO',
@@ -39,7 +39,15 @@ export interface Afectado {
   nombres: string;
   apellidoPaterno: string;
   apellidoMaterno: string;
-  edad: number;
+  fechaNacimiento: Date;
+  numeroHistoriaClinica?: string;
+  tipoSeguro: 'ESSALUD' | 'EPS' | 'OTRO';
+  correoElectronico?: string;
+  telefono?: string;
+  direccion: string;
+  departamento: string;
+  provincia: string;
+  distrito: string;
   genero: string;
 }
 
@@ -57,8 +65,15 @@ export interface Caso {
   huboSolicitud: boolean;
   severidad: Severidad;
   estado: EstadoCaso;
+  especialistaAsignado?: {
+    id: string;
+    nombres: string;
+    apellidoPaterno: string;
+    apellidoMaterno: string;
+    especialidad: string;
+  };
   solicitante: Solicitante;
-  afectado?: Afectado;
+  afectado: Afectado;
   descripcion: string;
   macroRegion: string;
   idSGD?: string;

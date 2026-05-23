@@ -17,7 +17,7 @@ export class WorkflowMockRepository extends WorkflowRepository {
       alertaDias: 20,
       activo: true,
       estados: [
-        { id: '1', nombre: 'Registrado', descripcion: 'Caso registrado', orden: 1, esInicial: true, esFinal: false, color: '#3b82f6' },
+        { id: '1', nombre: 'Ingresado', descripcion: 'Caso Ingresado', orden: 1, esInicial: true, esFinal: false, color: '#3b82f6' },
         { id: '2', nombre: 'En Proceso', descripcion: 'En análisis', orden: 2, esInicial: false, esFinal: false, color: '#f59e0b' },
         { id: '3', nombre: 'Resuelto', descripcion: 'Caso resuelto', orden: 3, esInicial: false, esFinal: true, color: '#10b981' }
       ],
@@ -35,7 +35,7 @@ export class WorkflowMockRepository extends WorkflowRepository {
       alertaDias: 20,
       activo: true,
       estados: [
-        { id: '1', nombre: 'Registrado', descripcion: 'Denuncia registrada', orden: 1, esInicial: true, esFinal: false, color: '#3b82f6' },
+        { id: '1', nombre: 'Ingresado', descripcion: 'Denuncia ingresada', orden: 1, esInicial: true, esFinal: false, color: '#3b82f6' },
         { id: '2', nombre: 'En Proceso', descripcion: 'En investigación', orden: 2, esInicial: false, esFinal: false, color: '#f59e0b' },
         { id: '3', nombre: 'Pendiente Informe', descripcion: 'Esperando informe', orden: 3, esInicial: false, esFinal: false, color: '#8b5cf6' },
         { id: '4', nombre: 'Resuelto', descripcion: 'Denuncia resuelta', orden: 4, esInicial: false, esFinal: false, color: '#10b981' },
@@ -54,7 +54,7 @@ export class WorkflowMockRepository extends WorkflowRepository {
     {
       id: '1',
       casoId: '1',
-      estadoAnterior: 'REGISTRADO',
+      estadoAnterior: 'INGRESADO',
       estadoNuevo: 'EN_PROCESO',
       usuario: 'Marlon Leandro',
       fecha: new Date('2026-04-04'),
